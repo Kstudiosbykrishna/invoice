@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K Studios – Invoice</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+  --cream: #faf8f5;
+  --warm: #f5f2ee;
+  --gold: #c9a96e;
+  --gold-l: #e8d5b0;
+  --gold-d: #a07840;
+  --dark: #2a2a2a;
+  --gray: #6b6b6b;
+  --lgray: #e8e4df;
+  --border: #ddd8d0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Jost', 'Segoe UI', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  min-height: 100vh;
+  font-size: 15px;
+}
+
+/* HEADER */
+.site-header {
+  background: var(--dark);
+  padding: 30px 20px 22px;
+  text-align: center;
+}
+/* .logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+.logo-img {
+  width: 54px; height: 54px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.88;
+} */
+.studio-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: #fff;
+}
+.studio-name em { color: var(--gold); font-style: normal; }
+.tagline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--gold-l);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.contact {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.12em;
+}
+.gold-line {
+  width: 50px; height: 1px;
+  background: var(--gold);
+  margin: 12px auto 0;
+  opacity: 0.55;
+}
+
+/* MAIN */
+.main { max-width: 660px; margin: 0 auto; padding: 24px 14px 60px; }
+
+/* CARD */
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+}
+.card-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-d);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--lgray);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title::before {
+  content: '';
+  display: block;
+  width: 3px; height: 15px;
+  background: var(--gold);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* GRID */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width:460px){ .g2 { grid-template-columns: 1fr; } }
+
+/* FIELDS */
+.field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+.field:last-child { margin-bottom: 0; }
+label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+input, select, textarea {
+  font-family: 'Jost', 'Segoe UI', sans-serif;
+  font-size: 0.9rem;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--warm);
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.15);
+  background: #fff;
+}
+textarea { resize: vertical; min-height: 68px; }
+
+/* PRICES */
+.prices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.price-item label { font-size: 0.65rem; }
+.price-item input { padding: 8px 10px; font-size: 0.86rem; margin-bottom:0; }
+
+/* EVENT BLOCK */
+.event-block {
+  border: 1px solid var(--lgray);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+  background: var(--warm);
+}
+.ev-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.ev-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-d);
+}
+.rm-btn {
+  background: none;
+  border: none;
+  color: #c0392b;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}
+.rm-btn:hover { opacity: 1; }
+
+.svc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin: 10px 0;
+}
+.svc-cb {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.svc-cb input[type=checkbox] {
+  width: 15px; height: 15px;
+  accent-color: var(--gold-d);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.cams-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.ev-total {
+  text-align: right;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gold-d);
+  margin-top: 8px;
+}
+
+/* ADD EVENT */
+.add-ev-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1.5px dashed var(--gold);
+  border-radius: 10px;
+  color: var(--gold-d);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.add-ev-btn:hover { background: rgba(201,169,110,0.1); }
+
+/* BUTTONS */
+.btn {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  padding: 13px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.btn-dark { background: var(--dark); color: #fff; }
+.btn-dark:hover { background: #111; }
+.btn-gold { background: var(--gold); color: #fff; }
+.btn-gold:hover { background: var(--gold-d); }
+.btn-out { background: transparent; border: 1.5px solid var(--border); color: var(--gray); }
+.btn-out:hover { border-color: var(--dark); color: var(--dark); }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-row .btn { flex: 1; min-width: 120px; }
+
+/* MODAL */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  padding: 16px;
+  overflow-y: auto;
+}
+.overlay.on { display: flex; align-items: flex-start; justify-content: center; }
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 680px;
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+}
+.modal-foot {
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px;
+  background: var(--warm);
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.modal-foot .btn { flex: 1; min-width: 100px; }
+
+/* INVOICE PREVIEW */
+.inv-head {
+  background: var(--dark);
+  padding: 28px 28px 22px;
+  display: block;
+  text-align: left;
+}
+/* .inv-logo {
+  width: 52px; height: 52px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.88;
+  flex-shrink: 0;
+} */
+.inv-sname {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.9rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  color: #fff;
+  line-height: 1.1;
+}
+.inv-sname em { color: var(--gold); font-style: normal; }
+.inv-tag {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--gold-l);
+}
+.inv-ct { font-size: 0.7rem; color: rgba(255,255,255,0.45); letter-spacing: 0.1em; }
+
+.inv-body { padding: 24px 28px; }
+.inv-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--lgray);
+}
+.ml { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-bottom: 2px; }
+.mv { font-size: 0.92rem; font-weight: 500; }
+.inv-id { color: var(--gold-d); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; }
+
+.stitle {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-d);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--lgray);
+}
+
+table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 0.84rem; }
+thead tr { background: var(--dark); color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+thead th { padding: 9px 12px; text-align: left; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+tbody tr:nth-child(even) { background: var(--warm); }
+tbody td { padding: 9px 12px; border-bottom: 1px solid var(--lgray); }
+tbody td:last-child { text-align: right; font-weight: 500; }
+
+.totals { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; margin-bottom: 20px; }
+.t-row { display: flex; gap: 22px; font-size: 0.84rem; }
+.t-row .tl { color: var(--gray); }
+.t-row .tv { min-width: 90px; text-align: right; font-weight: 500; }
+.grand {
+  display: flex; gap: 22px;
+  background: var(--dark); color: #fff;
+  padding: 11px 16px; border-radius: 8px;
+  font-size: 0.96rem; font-weight: 600;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.grand .tv { min-width: 90px; text-align: right; color: var(--gold); }
+
+.inv-footer {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--lgray);
+  text-align: center;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 0.86rem;
+  color: var(--gray);
+}
+.promo-bar {
+  background: rgba(201,169,110,0.1);
+  border-left: 3px solid var(--gold);
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  color: var(--dark);
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 14px;
+}
+.stag {
+  display: inline-block;
+  background: var(--dark);
+  color: #fff;
+  font-size: 0.66rem;
+  padding: 2px 7px;
+  border-radius: 20px;
+  margin: 2px;
+  letter-spacing: 0.04em;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo-row">
+    <!-- <img src=t="K Studios" class="logo-img"> -->
+    <div class="studio-name">K<em> STUDIOS</em></div>
+  </div>
+  <div class="tagline">Luxury in Every Shot.</div>
+  <div class="contact">Contact: 9845361278</div>
+  <div class="gold-line"></div>
+</header>
+
+<main class="main">
+
+  <div class="card">
+    <div class="card-title">Client Details</div>
+    <div class="g2">
+      <div class="field">
+        <label>Client Name *</label>
+        <input type="text" id="cname" placeholder="Full name">
+      </div>
+      <div class="field">
+        <label>Event Date</label>
+        <input type="date" id="edate">
+      </div>
+    </div>
+    <div class="field">
+      <label>Venue / Location</label>
+      <input type="text" id="loc" placeholder="Venue or city">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Service Rates (editable)</div>
+    <div class="prices-grid">
+      <div class="price-item field"><label>5D Photos (₹)</label><input type="number" id="r5d" value="10000"></div>
+      <div class="price-item field"><label>4K Video (₹)</label><input type="number" id="r4k" value="12000"></div>
+      <div class="price-item field"><label>Drone (₹)</label><input type="number" id="rDrone" value="8000"></div>
+      <div class="price-item field"><label>Candid Pic (₹)</label><input type="number" id="rCPic" value="5000"></div>
+      <div class="price-item field"><label>Candid Vid (₹)</label><input type="number" id="rCVid" value="7000"></div>
+      <div class="price-item field"><label>LED (₹)</label><input type="number" id="rLED" value="6000"></div>
+      <div class="price-item field"><label>Net Live (₹)</label><input type="number" id="rNL" value="15000"></div>
+      <div class="price-item field"><label>Frame Unit (₹)</label><input type="number" id="rFU" value="500"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Events</div>
+    <div id="ev-container"></div>
+    <button class="add-ev-btn" onclick="addEvent()">＋ Add Event</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Additional Details</div>
+    <div class="g2">
+      <div class="field"><label>Photo Sheets</label><input type="number" id="sheets" value="0" min="0"></div>
+      <div class="field"><label>Frames Count</label><input type="number" id="frames" value="0" min="0"></div>
+    </div>
+    <div class="g2">
+      <div class="field">
+        <label>Frames Included?</label>
+        <select id="hasFrames">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+      <div class="field"><label>Discount (₹)</label><input type="number" id="disc" value="0" min="0"></div>
+    </div>
+    <div class="field"><label>Promo / Notes</label><textarea id="promo" placeholder="Promo code, special notes, or terms..."></textarea></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-dark" onclick="preview()">Preview Invoice</button>
+    <button class="btn btn-out" onclick="clearAll()">Clear All</button>
+  </div>
+
+</main>
+
+<div class="overlay" id="modal" onclick="overlayClick(event)">
+  <div class="modal">
+    <div id="inv-preview"></div>
+    <div class="modal-foot">
+      <button class="btn btn-gold" onclick="savePDF()">Save as PDF</button>
+      <button class="btn btn-out" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let ec = 0;
+const rates = {
+  s5d:'r5d', s4k:'r4k', drone:'rDrone', cpic:'rCPic',
+  cvid:'rCVid', led:'rLED', nl:'rNL'
+};
+const svcNames = {
+  s5d:'5D Photos', s4k:'4K Video', drone:'Drone', cpic:'Candid Pic',
+  cvid:'Candid Vid', led:'LED', nl:'Net Live'
+};
+
+function getRate(k){ return parseFloat(document.getElementById(rates[k]).value)||0; }
+
+function addEvent(){
+  ec++;
+  const id=ec;
+  const div=document.createElement('div');
+  div.className='event-block';
+  div.id='ev-'+id;
+  div.innerHTML=`
+    <div class="ev-head">
+      <span class="ev-label">Event ${id}</span>
+      ${id>1?`<button class="rm-btn" onclick="removeEv(${id})">✕</button>`:''}
+    </div>
+    <div class="field">
+      <label>Event Name</label>
+      <input type="text" id="en-${id}" placeholder="e.g. Haldi / Reception / Engagement">
+    </div>
+    <div class="svc-grid">
+      <label class="svc-cb"><input type="checkbox" data-ev="${id}" data-s="s5d"> 5D Photos</label>
+      <label class="svc-cb"><input type="checkbox" data-ev="${id}" data-s="s4k"> 4K Video</label>
+      <label class="svc-cb"><input type="checkbox" data-ev="${id}" data-s="drone"> Drone</label>
+      <label class="svc-cb"><input type="checkbox" data-ev="${id}" data-s="cpic"> Candid Pic</label>
+      <label class="svc-cb"><input type="checkbox" data-ev="${id}" data-s="cvid"> Candid Vid</label>
+      <label class="svc-cb"><input type="checkbox" data-ev="${id}" data-s="led"> LED</label>
+      <label class="svc-cb"><input type="checkbox" data-ev="${id}" data-s="nl"> Net Live</label>
+    </div>
+    <div class="cams-row">
+      <div class="field" style="margin:0"><label>Photo Cams</label><input type="number" id="pc-${id}" value="0" min="0"></div>
+      <div class="field" style="margin:0"><label>Video Cams</label><input type="number" id="vc-${id}" value="0" min="0"></div>
+    </div>
+    <div class="ev-total" id="et-${id}">₹ 0.00</div>
+  `;
+  document.getElementById('ev-container').appendChild(div);
+  div.querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('change',()=>calcEvTotal(id));
+    inp.addEventListener('input',()=>calcEvTotal(id));
+  });
+}
+
+function removeEv(id){
+  const el=document.getElementById('ev-'+id);
+  if(el) el.remove();
+}
+
+function calcEvTotal(id){
+  let t=0;
+  document.querySelectorAll(`input[data-ev="${id}"]`).forEach(cb=>{
+    if(cb.checked) t+=getRate(cb.dataset.s);
+  });
+  const el=document.getElementById('et-'+id);
+  if(el) el.textContent='₹ '+t.toLocaleString('en-IN',{minimumFractionDigits:2});
+}
+
+function getEvents(){
+  const out=[];
+  document.querySelectorAll('.event-block').forEach(b=>{
+    const id=b.id.replace('ev-','');
+    const name=document.getElementById('en-'+id)?.value||'';
+    const svcs=[]; let sub=0;
+    b.querySelectorAll(`input[data-ev="${id}"]`).forEach(cb=>{
+      if(cb.checked){ svcs.push(cb.dataset.s); sub+=getRate(cb.dataset.s); }
+    });
+    const pc=parseInt(document.getElementById('pc-'+id)?.value)||0;
+    const vc=parseInt(document.getElementById('vc-'+id)?.value)||0;
+    out.push({id,name,svcs,sub,pc,vc});
+  });
+  return out;
+}
+
+function preview(){
+  const client=document.getElementById('cname').value.trim();
+  if(!client){alert('Please enter client name.');return;}
+
+  const date=document.getElementById('edate').value;
+  const loc=document.getElementById('loc').value;
+  const events=getEvents();
+  const frames=parseInt(document.getElementById('frames').value)||0;
+  const hf=document.getElementById('hasFrames').value;
+  const disc=parseFloat(document.getElementById('disc').value)||0;
+  const promo=document.getElementById('promo').value;
+  const fu=parseFloat(document.getElementById('rFU').value)||500;
+
+  const evTotal=events.reduce((s,e)=>s+e.sub,0);
+  const frTotal=hf==='yes'?frames*fu:0;
+  const sub=evTotal+frTotal;
+  const grand=sub-disc;
+
+  const invId='KS-'+Date.now().toString(36).toUpperCase().slice(-6);
+  const today=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  const dateStr=date?new Date(date).toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'}):'—';
+
+  const evRows=events.map(ev=>{
+    if(!ev.name&&ev.svcs.length===0) return '';
+    const tags=ev.svcs.map(s=>`<span class="stag">${svcNames[s]}</span>`).join('');
+    const cams=(ev.pc||ev.vc)?`<br><span style="font-size:.73rem;color:#888">📷 ${ev.pc} Photo &nbsp; 🎥 ${ev.vc} Video</span>`:'';
+    return `<tr><td>${ev.name||'Unnamed Event'}${cams}<br>${tags}</td><td>₹${ev.sub.toLocaleString('en-IN',{minimumFractionDigits:2})}</td></tr>`;
+  }).filter(Boolean).join('');
+
+  let extraRows='';
+  if(hf==='yes'&&frames>0)
+    extraRows+=`<tr><td>Frames (${frames} × ₹${fu})</td><td>₹${frTotal.toLocaleString('en-IN',{minimumFractionDigits:2})}</td></tr>`;
+
+  const promoHtml=promo?`<div class="promo-bar">📝 ${promo}</div>`:'';
+  const discRow=disc>0?`<div class="t-row" style="color:#c0392b"><span class="tl">Discount</span><span class="tv">− ₹${disc.toLocaleString('en-IN',{minimumFractionDigits:2})}</span></div>`:'';
+
+  document.getElementById('inv-preview').innerHTML=`
+    <div class="inv-head">
+      <img src="${LOGO}" alt="K Studios" class="inv-logo">
+      <div>
+        <div class="inv-sname">K<em> STUDIOS</em></div>
+        <div class="inv-tag">Luxury in Every Shot.</div>
+        <div class="inv-ct">Contact: 9845361278</div>
+      </div>
+    </div>
+    <div class="inv-body">
+      <div class="inv-meta">
+        <div>
+          <div class="ml">Billed To</div>
+          <div class="mv">${client}</div>
+          ${loc?`<div style="font-size:.8rem;color:#888;margin-top:2px">📍 ${loc}</div>`:''}
+        </div>
+        <div style="text-align:right">
+          <div class="inv-id">${invId}</div>
+          <div class="ml" style="margin-top:6px">Invoice Date</div>
+          <div class="mv" style="font-size:.85rem">${today}</div>
+          <div class="ml" style="margin-top:6px">Event Date</div>
+          <div class="mv" style="font-size:.85rem">${dateStr}</div>
+        </div>
+      </div>
+      ${promoHtml}
+      <div class="stitle">Services Breakdown</div>
+      <table>
+        <thead><tr><th>Event &amp; Services</th><th style="text-align:right">Amount</th></tr></thead>
+        <tbody>
+          ${evRows||'<tr><td colspan="2" style="color:#aaa;font-style:italic">No events added</td></tr>'}
+          ${extraRows}
+        </tbody>
+      </table>
+      <div class="totals">
+        <div class="t-row"><span class="tl">Subtotal</span><span class="tv">₹${sub.toLocaleString('en-IN',{minimumFractionDigits:2})}</span></div>
+        ${discRow}
+        <div class="grand"><span>Total Amount</span><span class="tv">₹${grand.toLocaleString('en-IN',{minimumFractionDigits:2})}</span></div>
+      </div>
+      <div class="inv-footer">
+        Thank you for choosing K Studios — We treasure your memories.<br>
+        <span style="font-size:.72rem;color:var(--gold-d);font-style:normal;letter-spacing:.06em">9845361278</span>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('modal').classList.add('on');
+}
+
+function closeModal(){ document.getElementById('modal').classList.remove('on'); }
+function overlayClick(e){ if(e.target===document.getElementById('modal')) closeModal(); }
+
+function savePDF(){
+  const content=document.getElementById('inv-preview').innerHTML;
+  const client=document.getElementById('cname').value.trim()||'Invoice';
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head>
+    <meta charset="UTF-8"><title>K Studios – ${client}</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+    :root{--cream:#faf8f5;--warm:#f5f2ee;--gold:#c9a96e;--gold-l:#e8d5b0;--gold-d:#a07840;--dark:#2a2a2a;--gray:#6b6b6b;--lgray:#e8e4df;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Jost','Segoe UI',sans-serif;color:var(--dark);background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .inv-head{background:var(--dark)!important;padding:28px 28px 22px;display:flex;align-items:center;gap:16px}
+    .inv-logo{width:52px;height:52px;object-fit:contain;filter:brightness(0) invert(1);opacity:.88;flex-shrink:0}
+    .inv-sname{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.9rem;font-weight:300;letter-spacing:.18em;color:#fff;line-height:1.1}
+    .inv-sname em{color:var(--gold);font-style:normal}
+    .inv-tag{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:.88rem;color:var(--gold-l)}
+    .inv-ct{font-size:.7rem;color:rgba(255,255,255,.45);letter-spacing:.1em}
+    .inv-body{padding:24px 28px}
+    .inv-meta{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--lgray)}
+    .ml{font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:2px}
+    .mv{font-size:.92rem;font-weight:500}
+    .inv-id{color:var(--gold-d);font-size:.78rem;font-weight:500;letter-spacing:.05em}
+    .stitle{font-family:'Cormorant Garamond',Georgia,serif;font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--lgray)}
+    table{width:100%;border-collapse:collapse;margin-bottom:18px;font-size:.84rem}
+    thead tr{background:var(--dark)!important;color:#fff}
+    thead th{padding:9px 12px;text-align:left;font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+    tbody tr:nth-child(even){background:var(--warm)!important}
+    tbody td{padding:9px 12px;border-bottom:1px solid var(--lgray)}
+    tbody td:last-child{text-align:right;font-weight:500}
+    .totals{display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-bottom:20px}
+    .t-row{display:flex;gap:22px;font-size:.84rem}
+    .t-row .tl{color:var(--gray)}.t-row .tv{min-width:90px;text-align:right;font-weight:500}
+    .grand{display:flex;gap:22px;background:var(--dark)!important;color:#fff;padding:11px 16px;border-radius:8px;font-size:.96rem;font-weight:600}
+    .grand .tv{min-width:90px;text-align:right;color:var(--gold)}
+    .inv-footer{margin-top:18px;padding-top:14px;border-top:1px solid var(--lgray);text-align:center;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:.86rem;color:var(--gray)}
+    .promo-bar{background:rgba(201,169,110,.1)!important;border-left:3px solid var(--gold);padding:8px 12px;font-size:.8rem;border-radius:0 6px 6px 0;margin-bottom:14px}
+    .stag{display:inline-block;background:var(--dark)!important;color:#fff;font-size:.66rem;padding:2px 7px;border-radius:20px;margin:2px;letter-spacing:.04em}
+    @media print{body{margin:0}}
+    </style></head><body>${content}</body></html>`);
+  w.document.close();
+  setTimeout(()=>{w.focus();w.print();},700);
+}
+
+function clearAll(){
+  if(!confirm('Clear all fields?')) return;
+  ['cname','edate','loc','sheets','frames','disc','promo'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value=el.type==='number'?'0':'';
+  });
+  document.getElementById('hasFrames').value='no';
+  document.getElementById('ev-container').innerHTML='';
+  ec=0;
+  addEvent();
+}
+
+addEvent();
+</script>
+</body>
+</html>
